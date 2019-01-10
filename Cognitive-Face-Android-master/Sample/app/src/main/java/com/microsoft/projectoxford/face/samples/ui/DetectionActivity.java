@@ -1,35 +1,3 @@
-//
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license.
-//
-// Microsoft Cognitive Services (formerly Project Oxford): https://www.microsoft.com/cognitive-services
-//
-// Microsoft Cognitive Services (formerly Project Oxford) GitHub:
-// https://github.com/Microsoft/Cognitive-Face-Android
-//
-// Copyright (c) Microsoft Corporation
-// All rights reserved.
-//
-// MIT License:
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
 package com.microsoft.projectoxford.face.samples.ui;
 
 import android.app.ProgressDialog;
@@ -85,21 +53,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class DetectionActivity extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
+public class DetectionActivity extends AppCompatActivity {
 
     MediaPlayer mPlayer;
     Button startButton, pauseButton, stopButton;
     Map<String, String> map = new HashMap<String, String>();
-
-    String[] faces = new String[100];
-
-
-
-//    List final String DATA_HTTP  = "https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/AudioPreview128/v4/18/00/83/180083c4-e8d1-8edd-080d-2d4f8c39f6d7/mzaf_8475248627883495306.plus.aac.p.m4a";
-//    final String DATA_HTTP2  = "https://www.europaplus.ru/sound/1524155304_Calvin_Harris__Dua_Lipa_-_One_Kiss.mp3";
-
-
 
     // Background task of face detection.
     private class DetectionTask extends AsyncTask<InputStream, String, Face[]> {
@@ -190,9 +150,6 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(getString(R.string.progress_dialog_title));
 
-
-
-
         // Disable button "detect" as the image to detect is not selected.
         setDetectButtonEnabledStatus(false);
 
@@ -204,44 +161,15 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
         startButton.setVisibility(View.INVISIBLE);
         pauseButton.setVisibility(View.INVISIBLE);
         stopButton.setVisibility(View.INVISIBLE);
-
-
-
-
-//        try {
-//            mPlayer.setDataSource(DATA_HTTP);
-//            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//
-//            mPlayer.setOnPreparedListener(this);
-//            mPlayer.prepareAsync();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                stopPlay();
-//            }
-//        });
-
     }
 
     private void musicOn(String emotionType){
 
-
-//        map.put("Neutral", "https://www.europaplus.ru/sound/1524155304_Calvin_Harris__Dua_Lipa_-_One_Kiss.mp3");
-//        map.put("Sadness", "http://ol6.mp3party.net/online/8465/8465102.mp3");
-//        map.put("Anger", "  http://ol1.mp3party.net/online/49/49449.mp3");
-//        map.put("Happiness""https://audio-ssl.itunes.apple.com/apple-assets-us-std-000001/AudioPreview128/v4/18/00/83/180083c4-e8d1-8edd-080d-2d4f8c39f6d7/mzaf_8475248627883495306.plus.aac.p.m4a");
-        map.put("Веселый:)", getMusic("Веселый:)"));
+        map.put("Веселый:)", Objects.requireNonNull(getMusic("Веселый:)")));
         map.put("Злой", getMusic("Злой"));
         map.put("Обычный)", getMusic("Обычный)"));
         map.put("Грустный:(", getMusic("Грустный:("));
         map.put("Удивленный", getMusic("Удивленный"));
-
-
 
         startButton.setVisibility(View.VISIBLE);
         pauseButton.setVisibility(View.VISIBLE);
@@ -258,7 +186,6 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -288,7 +215,6 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
                 mas = res.getStringArray(R.array.songsSurp);
                 return mas[(int) (Math.random() * 5)];
             default: return null;
-
         }
     }
 
@@ -326,19 +252,12 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
         stopPlay();
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        if (mPlayer.isPlaying()) {
-//            stopPlay();
-//        }
-//    }
-
-
-
-    @Override
-    public void onPrepared(MediaPlayer mediaPlayer) {
-
+        @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPlayer.isPlaying()) {
+            stopPlay();
+        }
     }
 
 
@@ -382,12 +301,10 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
                                 + "x" + mBitmap.getHeight());
                     }
 
-
                     // Clear the detection result.
                     FaceListAdapter faceListAdapter = new FaceListAdapter(null);
                     ListView listView = findViewById(R.id.list_detected_faces);
                     listView.setAdapter(faceListAdapter);
-
 
                     // Clear the information panel.
                     setInfo("");
@@ -464,16 +381,16 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
 
     // Set whether the buttons are enabled.
     private void setDetectButtonEnabledStatus(boolean isEnabled) {
-        Button detectButton = (Button) findViewById(R.id.detect);
+        Button detectButton = findViewById(R.id.detect);
         detectButton.setEnabled(isEnabled);
     }
 
     // Set whether the buttons are enabled.
     private void setAllButtonsEnabledStatus(boolean isEnabled) {
-        Button selectImageButton = (Button) findViewById(R.id.select_image);
+        Button selectImageButton =  findViewById(R.id.select_image);
         selectImageButton.setEnabled(isEnabled);
 
-        Button detectButton = (Button) findViewById(R.id.detect);
+        Button detectButton =  findViewById(R.id.detect);
         detectButton.setEnabled(isEnabled);
 
 
@@ -481,7 +398,7 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
 
     // Set the information panel on screen.
     private void setInfo(String info) {
-        TextView textView = (TextView) findViewById(R.id.info);
+        TextView textView = findViewById(R.id.info);
         textView.setText(info);
     }
 
@@ -516,14 +433,6 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
                     }
                 }
             }
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    FaceListAdapter clickedObj = (FaceListAdapter) adapterView.getItemAtPosition(position);
-                    chooseEmotion(getEmotion(clickedObj.faces.get(position).faceAttributes.emotion));
-                }
-            });
         }
 
         @Override
@@ -702,7 +611,8 @@ public class DetectionActivity extends AppCompatActivity implements MediaPlayer.
                     musicOn(emotionType);
                     break;
                 case "Обычный)":
-                    musicOn(emotionType); break;
+                    musicOn(emotionType);
+                    break;
                 case "Грустный:(":
                     musicOn(emotionType);
                     break;

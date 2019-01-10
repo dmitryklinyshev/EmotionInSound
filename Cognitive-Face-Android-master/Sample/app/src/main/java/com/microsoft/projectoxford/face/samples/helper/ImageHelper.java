@@ -191,29 +191,7 @@ public class ImageHelper {
         return bitmap;
     }
 
-    // Highlight the selected face thumbnail in face list.
-    public static Bitmap highlightSelectedFaceThumbnail(Bitmap originalBitmap) {
-        Bitmap bitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.parseColor("#3399FF"));
-        int stokeWidth = Math.max(originalBitmap.getWidth(), originalBitmap.getHeight()) / 10;
-        if (stokeWidth == 0) {
-            stokeWidth = 1;
-        }
-        bitmap.getWidth();
-        paint.setStrokeWidth(stokeWidth);
-        canvas.drawRect(
-                0,
-                0,
-                bitmap.getWidth(),
-                bitmap.getHeight(),
-                paint);
 
-        return bitmap;
-    }
 
     // Crop the face thumbnail out from the original image.
     // For better view for human, face rectangles are resized to the rate faceRectEnlargeRatio.

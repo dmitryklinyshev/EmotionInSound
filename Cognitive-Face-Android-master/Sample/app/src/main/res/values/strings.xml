@@ -3,8 +3,8 @@
 <resources>
     <!-- Please refer to https://azure.microsoft.com/en-us/services/cognitive-services/face/ to get your subscription key -->
     <!-- If you have subscription key with its corresponding endpoint, you can add them here to use the service -->
-    <string name="subscription_key">d9c1433818a44dd7920bc095a16d366d</string>
-    <string name="endpoint">https://westcentralus.api.cognitive.microsoft.com/face/v1.0</string>
+    <string name="subscription_key">6bb5b591fbd94d0394cf977a84d743de</string>
+    <string name="endpoint">https://northeurope.api.cognitive.microsoft.com/face/v1.0</string>
 
     <!-- Main activity -->
     <string name="detection">Узнать свое музыкальное настроение</string>
