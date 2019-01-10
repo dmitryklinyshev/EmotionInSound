@@ -181,7 +181,7 @@ public class DetectionActivity extends AppCompatActivity {
             mPlayer.setDataSource(map.get(emotionType));
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-            mPlayer.setOnPreparedListener(this);
+//            mPlayer.setOnPreparedListener(this);
             mPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
