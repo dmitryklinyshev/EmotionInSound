@@ -1,35 +1,4 @@
-//
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license.
-//
-// Microsoft Cognitive Services (formerly Project Oxford): https://www.microsoft.com/cognitive-services
-//
-// Microsoft Cognitive Services (formerly Project Oxford) GitHub:
-// https://github.com/Microsoft/Cognitive-Face-Android
-//
-// Copyright (c) Microsoft Corporation
-// All rights reserved.
-//
-// MIT License:
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
+
 package com.microsoft.projectoxford.face.samples.helper;
 
 import android.content.ContentResolver;
@@ -52,26 +21,13 @@ import com.microsoft.projectoxford.face.contract.FaceRectangle;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Defined several functions to load, draw, save, resize, and rotate images.
- */
+
 public class ImageHelper {
 
-    // The maximum side length of the image to detect, to keep the size of image less than 4MB.
-    // Resize the image if its side length is larger than the maximum.
     private static final int IMAGE_MAX_SIDE_LENGTH = 1280;
-
-    // Ratio to scale a detected face rectangle, the face rectangle scaled up looks more natural.
     private static final double FACE_RECT_SCALE_RATIO = 1.3;
 
 
-
-    // Decode image from imageUri, and resize according to the expectedMaxImageSideLength
-    // If expectedMaxImageSideLength is
-    //     (1) less than or equal to 0,
-    //     (2) more than the actual max size length of the bitmap
-    //     then return the original bitmap
-    // Else, return the scaled bitmap
     public static Bitmap loadSizeLimitedBitmapFromUri(
             Uri imageUri,
             ContentResolver contentResolver) {
@@ -115,8 +71,6 @@ public class ImageHelper {
         }
     }
 
-    // Draw detected face rectangles in the original image. And return the image drawn.
-    // If drawLandmarks is set to be true, draw the five main landmarks of each face.
     public static Bitmap drawFaceRectanglesOnBitmap(
             Bitmap originalBitmap, Face[] faces, boolean drawLandmarks) {
         Bitmap bitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
@@ -192,9 +146,6 @@ public class ImageHelper {
     }
 
 
-
-    // Crop the face thumbnail out from the original image.
-    // For better view for human, face rectangles are resized to the rate faceRectEnlargeRatio.
     public static Bitmap generateFaceThumbnail(
             Bitmap originalBitmap,
             FaceRectangle faceRectangle) throws IOException {
@@ -205,8 +156,6 @@ public class ImageHelper {
                 originalBitmap, faceRect.left, faceRect.top, faceRect.width, faceRect.height);
     }
 
-    // Return the number of times for the image to shrink when loading it into memory.
-    // The SampleSize can only be a final value based on powers of 2.
     private static int calculateSampleSize(int maxSideLength, int expectedMaxImageSideLength) {
         int inSampleSize = 1;
 
@@ -252,7 +201,6 @@ public class ImageHelper {
         return angle;
     }
 
-    // Rotate the original bitmap according to the given orientation angle
     private static Bitmap rotateBitmap(Bitmap bitmap, int angle) {
         // If the rotate angle is 0, then return the original image, else return the rotated image
         if (angle != 0) {
@@ -265,8 +213,6 @@ public class ImageHelper {
         }
     }
 
-    // Resize face rectangle, for better view for human
-    // To make the rectangle larger, faceRectEnlargeRatio should be larger than 1, recommend 1.3
     private static FaceRectangle calculateFaceRectangle(
             Bitmap bitmap, FaceRectangle faceRectangle, double faceRectEnlargeRatio) {
         // Get the resized side length of the face rectangle

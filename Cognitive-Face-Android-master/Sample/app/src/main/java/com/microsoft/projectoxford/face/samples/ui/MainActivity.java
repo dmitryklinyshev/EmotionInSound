@@ -32,15 +32,14 @@
 //
 package com.microsoft.projectoxford.face.samples.ui;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
 import com.microsoft.projectoxford.face.samples.R;
+import com.microsoft.projectoxford.face.samples.logic.DetectionActivity;
 
 
 public class MainActivity extends AppCompatActivity {
